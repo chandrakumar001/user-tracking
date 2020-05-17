@@ -1,0 +1,18 @@
+
+        //HttpHeaders.CONTENT_TYPE;
+        //1.HttpHeaders
+        //2.MediaType
+        //3.HttpStatus
+        //4.HttpEntity && ResponseEntity
+
+
+
+    //@Autowired
+    //UserBareDTOValidator userBareDTOValidator;
+
+        /*
+            @InitBinder
+            protected void initBinder(final WebDataBinder binder) {
+                binder.addValidators(userBareDTOValidator);
+            }
+        */

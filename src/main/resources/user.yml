@@ -1,0 +1,5 @@
+user:
+  attribute:
+    contactInfo:
+      userName: userBareDTO.empty.userName
+      email: userBareDTO.empty.email
