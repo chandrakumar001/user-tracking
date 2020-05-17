@@ -1,63 +1,4 @@
-# ontll-api Developer
-
-
-
-The Best way to write code<br>
-<b>1) Utils</b><br>
-   ->String null/empty check using `StringUtils.isEmpty()`
-     
-               if (StringUtils.isEmpty(id)) {
-                     throw new FieldValidationException(fieldName + " Should not be empty/null");
-                 }
-  <br>
-   -> Collection empty/null check using  `CollectionUtils.isEmpty()`
-    
-             if (CollectionUtils.isEmpty((List) objects)) {
-                throw new NoRecordFoundException(message);
-            }
-   <br> 
-   Validating UUID: already ValidationUtil class having the method 'validateUUIDFormat(final String id, final String fieldName)'
-   call this method and this method valdiate null/
-   Example:
-        
-         // UUID Validation
-        final UUID pcidUUID = ValidationUtil.validateUUIDFormat(partcvId, PartcvConstant.PARTCV);
-           
-   Note: 
-        
-        PartcvConstant.PARTCV="partcv"
-   
-    
-   
- <b>2)Ugly code vs Clean code</b>
- 
- <b>unnecessary creating variable and assignment </b><br>
-  Ugly code:
-         
-         private UUID validUUID(String stringId, String message) {
-             UUID id ;
-             try {
-                 id=UUID.fromString(stringId);
-             } catch (final IllegalArgumentException illegalArgumentException) {
-                 throw new InvalidUUIDException(message);
-             }
-             return id;
-         }
-                  
-  clean code
-   
-        public static UUID validateUUIDFormat(final String id, final String fieldName) {
-           try {
-               return UUID.fromString(id);
-           } catch (final IllegalArgumentException illegalArgumentException) {
-               final String errorMessage = CommonHelper.getErrorMessage(
-                       ValidationUtilConstant.INVALID,
-                       fieldName,
-                       ValidationUtilConstant.ID);
-               throw new FieldValidationException(errorMessage);
-           }
-       }
- 
+# User Tracking 
    <br>
     <b>magic number</b>
     
@@ -96,14 +37,7 @@ The Best way to write code<br>
      
      mvn sonar:sonar -Dsonar.host.url=http://localhost:9000
      
-   Git merge: 
-   1.Create new util.util branch locally and push remote git repository
-       
-    git clone https://git.daimler.com/ontll/ontll-api.git
-    cd ontll-api
-    git checkout develop
-    git pull
-    git checkout -b util.util/<task/storyid>    
+   Git merge:   
 
    2.Push the new util.util branch
       
