@@ -34,6 +34,8 @@
         <cxf.codegen.version>3.3.3</cxf.codegen.version>
         <swagger.resource.path>src/main/resources/swagger/v1</swagger.resource.path>
         <resource.path.wsdl>src/main/resources/wsdl/v1</resource.path.wsdl>
+        <skip.unit.tests>false</skip.unit.tests>
+        <skip.integration.tests>true</skip.integration.tests>
     </properties>
 
     <dependencies>
@@ -218,6 +220,7 @@
                         <include>**/*Test.java</include>
                         <include>**/*Spec.java</include>
                     </includes>
+                    <skipTests>${skip.unit.tests}</skipTests>
                 </configuration>
             </plugin>
             <plugin>
@@ -229,6 +232,9 @@
                         <goals>
                             <goal>verify</goal>
                         </goals>
+                        <configuration>
+                            <skipTests>${skip.integration.tests}</skipTests>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -83,5 +83,10 @@ Kill 8080 port on cmd
       mvn clean install -Dmaven.test.skip=true  
       mvn verify
       mvn clean install -Powasp-depency-check -Dmaven.test.skip=true
-          
-        
+   To skip unit test from integration Test       
+     
+     mvn verify -Dskip.unit.tests=true
+     
+   To unit Test       
+      
+      mvn test
