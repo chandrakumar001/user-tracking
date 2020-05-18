@@ -1,0 +1,10 @@
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.logs
+.idea/
+.eclipse
+.src/main/resources/application.yml

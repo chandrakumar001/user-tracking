@@ -31,17 +31,16 @@ public class UserTrackingRestController {
     public static final String PATH_USERS_WITH_UID = PATH_USERS + "/uid";
     public static final String UID = "uid";
 
-    @NonNull UserProperties userProperties;
 
     @GetMapping(path = PATH_USERS)
-    public HttpEntity<UserTrackingListResponseDTO> getAllUsers() {
+    public HttpEntity<UserTrackingListResponseDTO> getAllUserTracking() {
 
         final UserTrackingListResponseDTO usersListResponseDTO = new UserTrackingListResponseDTO();
-        return new ResponseEntity<>(usersListResponseDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(usersListResponseDTO, HttpStatus.OK);
     }
 
     @PostMapping(path = PATH_USERS)
-    public HttpEntity<UserTrackingBareDTO> createUser(
+    public HttpEntity<UserTrackingBareDTO> createUserTracking(
             @Valid @RequestBody final UserTrackingBareDTO userBareDTO) {
 
 
@@ -50,7 +49,7 @@ public class UserTrackingRestController {
     }
 
     @PutMapping(path = PATH_USERS_WITH_UID)
-    public HttpEntity<UserTrackingBareDTO> updateUser(
+    public HttpEntity<UserTrackingBareDTO> updateUserTracking(
             @PathVariable(UID) final String uid,
             @Valid @RequestBody final UserTrackingBareDTO userBareDTO) {
 
@@ -59,7 +58,7 @@ public class UserTrackingRestController {
     }
 
     @GetMapping(path = PATH_USERS_WITH_UID)
-    public HttpEntity<UserDTO> getUser(
+    public HttpEntity<UserDTO> getUserTracking(
             @PathVariable(UID) final String uid) {
 
         System.out.println(uid + "-----");
@@ -68,7 +67,7 @@ public class UserTrackingRestController {
     }
 
     @DeleteMapping(path = PATH_USERS_WITH_UID)
-    public HttpEntity<ResponseMessageDTO> deleteUser(
+    public HttpEntity<ResponseMessageDTO> deleteUserTracking(
             @PathVariable(UID) final String uid) {
 
         System.out.println(uid);
