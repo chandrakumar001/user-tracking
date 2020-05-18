@@ -1,0 +1,16 @@
+{
+  "email": "abc@in.com",
+  "userNumber": "12345678",
+  "contactInfo": [
+    {
+      "firstName": "string",
+      "lastName": "string",
+      "phone": "string"
+    }
+  ],
+  "selectedPlan": 1,
+  "auditModel": {
+    "createdDate": "string",
+    "updateDate": "string"
+  }
+}

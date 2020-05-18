@@ -1,0 +1,12 @@
+Scenario: As a user i want to verify the creation of duplicate entity
+#create action.
+* def createAction = call read('classpath:com/karate/openwhisk/wskactions/create-action.feature') {script:'#(scriptcode)' ,nameSpace:'#(nameSpace)' ,Auth:'#(Auth)'}
+* def actionName = createAction.actName
+* match createAction.responseStatusCode == 200
+* print "Successfully Created an action"
+
+#recreate the duplicate action with the same name
+* def createAction = call read('classpath:com/karate/openwhisk/wskactions/create-action.feature') {script:'#(scriptcode)' ,nameSpace:'#(nameSpace)' ,Auth:'#(Auth)' ,actionName:'#(actionName)'}
+* def actionName = createAction.actName
+* match createAction.responseStatusCode == 409
+* match createAction.response.error == "resource already exists"

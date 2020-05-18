@@ -28,7 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class UserTrackingRestController {
 
     public static final String PATH_USERS = "/users";
-    public static final String PATH_USERS_WITH_UID = PATH_USERS + "/uid";
+    public static final String PATH_USERS_WITH_UID = PATH_USERS + "/{uid}";
     public static final String UID = "uid";
 
 
