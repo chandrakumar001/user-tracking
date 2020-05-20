@@ -1,5 +1,6 @@
 package com.example.ecom.exception;
 
+import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.SQLGrammarException;
@@ -192,9 +193,26 @@ public class GeneralException {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    /*@ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDetails> handleHttpMessageNotReadableException(
             final HttpMessageNotReadableException httpMessageNotReadableException) {
+        if(httpMessageNotReadableException instanceof ValueInstantiationException){
+
+        }
+        final String message = getMessage(ERROR_MESSAGE_INVALID_FORMAT_JSON);
+        final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
+                message,
+                HttpStatus.BAD_REQUEST.toString(),
+                DateHelper.getDatetimeStamp()
+        );
+
+        printException(httpMessageNotReadableException, exceptionDetails);
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }*/
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionDetails> handleIllegalArgumentException(
+            final IllegalArgumentException httpMessageNotReadableException) {
         final String message = getMessage(ERROR_MESSAGE_INVALID_FORMAT_JSON);
         final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
                 message,
@@ -205,7 +223,6 @@ public class GeneralException {
         printException(httpMessageNotReadableException, exceptionDetails);
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
-
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ExceptionDetails> handleHttpRequestMethodNotSupportedException(
             final HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
