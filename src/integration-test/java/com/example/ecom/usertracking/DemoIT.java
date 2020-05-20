@@ -36,15 +36,24 @@ public class DemoIT {
     private static final String TAG_IGNORE = "~@ignore";
 
     @Test
-    void testParallel() {
+    void testParallelWrite() {
 
-        final Results results = Runner.path("classpath:feature/")
+        final Results results = Runner.path("classpath:feature/usertracking/write")
                 .tags(TAG_IGNORE)
                 .parallel(100);
         generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
 
+    //    @Test
+//    void testParallelRead() {
+//
+//        final Results results = Runner.path("classpath:feature/")
+//                .tags(TAG_IGNORE)
+//                .parallel(100);
+//        generateReport(results.getReportDir());
+//        assertEquals(0, results.getFailCount(), results.getErrorMessages());
+//    }
     private static void generateReport(final String karateOutputPath) {
 
         final Collection<File> jsonFiles = FileUtils.listFiles(

@@ -42,9 +42,6 @@ public class GeneralException {
     private static final String ERROR_MESSAGE_INVALID_QUERY = "error.message.invalid.query.";
     private static final String VALUE = ".value";
     private static final String EXCEPTION_OCCURS_IN = "Exception occurs in ";
-    public static final String NULL_EMPTY = ".null.empty";
-    public static final String COLON = ".";
-    public static final String FORMAT = ".format";
 
     @Autowired
     MessageSource messageSource;
