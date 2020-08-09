@@ -37,4 +37,16 @@ public class HardwareMapper {
         hardware.setVirtualization(userBareDTO.getVirtualization());
         return hardware;
     }
+
+    public static Hardware mapToUpdateHardware(
+            final Hardware hardware,
+            final HardwareBareDTO userBareDTO) {
+
+        hardware.setManufacture(userBareDTO.getManufacture());
+        hardware.setMemory(userBareDTO.getMemory());
+        hardware.setModel(userBareDTO.getModel());
+        hardware.setProcessor(userBareDTO.getProcessor());
+        hardware.setVirtualization(userBareDTO.getVirtualization());
+        return hardware;
+    }
 }

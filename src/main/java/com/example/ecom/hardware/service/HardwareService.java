@@ -93,12 +93,21 @@ public class HardwareService {
         validateHid(hid);
         final UUID hidUUID = UUID.fromString(hid);
 
-        final Hardware hardware = hardwareIdExists(
+        final Hardware hardwareIdExists = hardwareIdExists(
                 hidUUID
         );
 
-        final HardwareBareDTO data = HardwareMapper.mapToHardwareBareDTO(
+        final Hardware hardware = HardwareMapper.mapToUpdateHardware(
+                hardwareIdExists,
+                userBareDTO
+        );
+
+        final Hardware newHardware = hardwareRepository.save(
                 hardware
+        );
+
+        final HardwareBareDTO data = HardwareMapper.mapToHardwareBareDTO(
+                newHardware
         );
         return HardwareMapper.mapToHardwareDTO(hardware, data);
     }
