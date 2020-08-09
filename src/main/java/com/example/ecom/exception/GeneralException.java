@@ -1,6 +1,5 @@
 package com.example.ecom.exception;
 
-import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.SQLGrammarException;
@@ -193,22 +192,20 @@ public class GeneralException {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
-    /*@ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDetails> handleHttpMessageNotReadableException(
             final HttpMessageNotReadableException httpMessageNotReadableException) {
-        if(httpMessageNotReadableException instanceof ValueInstantiationException){
 
+        Throwable mostSpecificCause = httpMessageNotReadableException.getMostSpecificCause();
+        {
+            final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
+                    mostSpecificCause.getMessage(),
+                    HttpStatus.BAD_REQUEST.toString(),
+                    DateHelper.getDatetimeStamp()
+            );
+            return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
         }
-        final String message = getMessage(ERROR_MESSAGE_INVALID_FORMAT_JSON);
-        final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
-                message,
-                HttpStatus.BAD_REQUEST.toString(),
-                DateHelper.getDatetimeStamp()
-        );
-
-        printException(httpMessageNotReadableException, exceptionDetails);
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
-    }*/
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionDetails> handleIllegalArgumentException(
@@ -223,6 +220,7 @@ public class GeneralException {
         printException(httpMessageNotReadableException, exceptionDetails);
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ExceptionDetails> handleHttpRequestMethodNotSupportedException(
             final HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
@@ -243,7 +241,11 @@ public class GeneralException {
 
         final BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
         final List<ObjectError> allErrors = bindingResult.getAllErrors();
-        CollectionValidationUtils.notEmpty(allErrors, ERROR_NO_FIELD_ERROR);
+
+        CollectionValidationUtils.notEmpty(
+                allErrors,
+                ERROR_NO_FIELD_ERROR
+        );
 
         if (allErrors.size() > 1) {
             final List<ExceptionDetails> errorMessages = allErrors
@@ -253,7 +255,6 @@ public class GeneralException {
                     .collect(Collectors.toList());
 
             log.error(EXCEPTION_OCCURS_IN + errorMessages);
-            log.error("Ops!", methodArgumentNotValidException);
             return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
         }
 
@@ -263,6 +264,7 @@ public class GeneralException {
                 .map(ExceptionDetails::of)
                 .findFirst()
                 .orElse(null);
+
         printException(methodArgumentNotValidException, details);
         return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
 
@@ -288,7 +290,7 @@ public class GeneralException {
     }*/
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public ResponseEntity<ExceptionDetails> handleMethodArgumentNotValidException(
+    public ResponseEntity<ExceptionDetails> HttpMediaTypeNotSupportedException(
             final HttpMediaTypeNotSupportedException httpMediaTypeNotSupportedException) {
 
         final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
@@ -399,6 +401,5 @@ public class GeneralException {
     private void printException(final Exception resourceCreationFailedException,
                                 final ExceptionDetails exception) {
         log.error(EXCEPTION_OCCURS_IN + exception);
-        log.error("Ops!", resourceCreationFailedException);
     }
 }

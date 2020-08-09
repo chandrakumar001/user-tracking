@@ -1,6 +1,15 @@
 ------------------------CREATE SCHEMA--------------------------------------------------
 create SCHEMA test;
 
+create table test.hardware (
+    hardware_id uuid not null,
+    manufacture varchar(255),
+    memory varchar(255),
+    model varchar(255),
+    processor varchar(255),
+    virtualization varchar(255),
+    primary key (hardware_id)
+ );
 
 CREATE TABLE test.user_tracking (
 	user_tracking_id uuid NOT NULL,

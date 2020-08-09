@@ -12,13 +12,6 @@ paths:
       operationId: queryAllUsers
       tags:
         - User
-      parameters:
-        - name: pcid
-          in: path
-          required: true
-          description: ID of the user
-          schema:
-            type: string
       responses:
         "200":
           description: successful operation

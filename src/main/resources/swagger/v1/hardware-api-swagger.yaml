@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Hardware
+servers:
+  - url: /api
+paths:
+  "/v1/hardware":
+    x-swagger-router-controller: hardware
+    get:
+      summary: Get all hardware for hardware.
+      operationId: queryAllHardware
+      tags:
+        - Hardware details
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/hardware-list-response"
+        "400":
+          description: invalid request
+        "404":
+          description: hardware not found
+    post:
+      summary: create a new hardware for hardware
+      tags:
+        - Hardware details
+      operationId: createUser
+      requestBody:
+        $ref: "#/components/requestBodies/hardware-bare"
+      responses:
+        "201":
+          description: hardware created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/hardware-bare"
+        "400":
+          description: error, tbd.
+  "/v1/hardware/{hid}":
+    x-swagger-router-controller: hardware
+    get:
+      summary: get hardware by id
+      tags:
+        - Hardware details
+      operationId: getHardware
+      parameters:
+        - name: hid
+          in: path
+          required: true
+          description: ID of the hardware
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/hardware"
+        "400":
+          description: Invalid ID
+        "404":
+          description: hardware not found
+    put:
+      summary: update an hardware
+      tags:
+        - Hardware details
+      operationId: updateHardware
+      parameters:
+        - name: hid
+          in: path
+          required: true
+          description: ID of the hardware
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/hardware-bare"
+      responses:
+        "202":
+          description: hardware updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/hardware-bare"
+        "400":
+          description: error, tbd.
+    delete:
+      summary: delete hardware
+      tags:
+        - Hardware details
+      operationId: deleteHardware
+      parameters:
+        - name: hid
+          in: path
+          required: true
+          description: ID of the hardware
+          schema:
+            type: string
+      responses:
+        "200":
+          description: hardware deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response-message"
+        "400":
+          description: Invalid ID hardware
+        "404":
+          description: hardware not found
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+components:
+  requestBodies:
+    hardware-bare:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/hardware-bare"
+      description: new hardware
+  schemas:
+    ###
+    ###  hardware object
+    ###
+    hardware-bare:
+      required: #null
+        - manufacture
+        - model
+        - processor
+        - memory
+        - virtualization
+      type: object
+      properties:
+        manufacture:
+          type: string
+          example: 'HP'
+          minLength: 1  #length: empty
+        model:
+          type: string
+          example: 'HP EliteBook 850 G3'
+          minLength: 1  #length: empty
+        processor:
+          type: string
+          example: 'intel i5'
+          minLength: 1  #length: empty
+        memory:
+          type: string
+          example: '8GB'
+          minLength: 1  #length: empty
+        virtualization:
+          type: string
+          example: 'yes'
+          minLength: 1  #length: empty
+    hardware-list-response:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 15
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/hardware"
+    hardware:
+      type: object
+      properties:
+        id:
+          type: string
+          example: e2a40b33-a11a-4938-8111-07acf5758977
+          format: uuid
+        data:
+          $ref: "#/components/schemas/hardware-bare"
+    response-message:
+      type: object
+      properties:
+        message:
+          type: string
+          example: deleted successfully

@@ -204,6 +204,23 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <release>11</release>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
            <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
@@ -339,6 +356,32 @@
                                 <useOptional>true</useOptional>
                                 <useBeanValidation>true</useBeanValidation>
                                 <performBeanValidation>true</performBeanValidation>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>gen2</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${basedir}/${swagger.resource.path}/hardware-api-swagger.yaml</inputSpec>
+                            <modelPackage>com.demo.usertracking.api.swagger.model.hardware</modelPackage>
+                            <generatorName>spring</generatorName>
+                            <modelNameSuffix>DTO</modelNameSuffix>
+                            <verbose>false</verbose>
+                            <configHelp>false</configHelp>
+                            <output>${project.build.directory}</output>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateApis>false</generateApis>
+                            <generateModels>true</generateModels>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <serializableModel>true</serializableModel>
+                                <sourceFolder>src/main/swagger</sourceFolder>
+                                <interfaceOnly>true</interfaceOnly>
+                                <dateLibrary>legacy</dateLibrary>
+                                <java8>true</java8>
                             </configOptions>
                         </configuration>
                     </execution>

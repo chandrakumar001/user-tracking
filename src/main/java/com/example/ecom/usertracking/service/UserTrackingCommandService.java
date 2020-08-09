@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,7 +43,6 @@ public class UserTrackingCommandService {
     @NonNull UserTrackingRepository userTrackingRepository;
 
     public UserTrackingDTO createUserTracking(final UserTrackingBareDTO userTrackingBareDTO) {
-
         //validate email
         final boolean isEmailExists = getByEmail(userTrackingBareDTO.getEmail())
                 .isPresent();
