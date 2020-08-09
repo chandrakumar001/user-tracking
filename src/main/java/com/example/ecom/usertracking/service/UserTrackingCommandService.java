@@ -4,8 +4,8 @@ import com.demo.usertracking.api.swagger.model.ContactInfoDTO;
 import com.demo.usertracking.api.swagger.model.ResponseMessageDTO;
 import com.demo.usertracking.api.swagger.model.UserTrackingBareDTO;
 import com.demo.usertracking.api.swagger.model.UserTrackingDTO;
-import com.example.ecom.exception.FieldConflictException;
-import com.example.ecom.exception.ResourceNotFoundException;
+import com.example.ecom.exception.common.FieldConflictException;
+import com.example.ecom.exception.common.ResourceNotFoundException;
 import com.example.ecom.usertracking.entity.ContactInfo;
 import com.example.ecom.usertracking.entity.UserTracking;
 import com.example.ecom.usertracking.mapper.ContactInfoMapper;
@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

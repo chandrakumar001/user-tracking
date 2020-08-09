@@ -1,5 +1,6 @@
 package com.example.ecom.exception;
 
+import com.example.ecom.exception.common.FieldValidationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 

@@ -1,5 +1,6 @@
 package com.example.ecom.exception;
 
+import com.example.ecom.exception.common.FieldValidationException;
 import org.springframework.util.StringUtils;
 
 import java.time.Instant;

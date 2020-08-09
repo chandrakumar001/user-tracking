@@ -63,12 +63,6 @@ public class HttpHeaderInterceptor extends HandlerInterceptorAdapter {
         return Optional.empty();
     }
 
-    private boolean isContentTypeJsonAndNotNull(String contentType) {
-        return (contentType != null) &&
-                !contentType.equalsIgnoreCase(MediaType.APPLICATION_JSON_VALUE) &&
-                contentType.equalsIgnoreCase(APPLICATION_JSON_CHARSET_UTF_8);
-    }
-
     private boolean isEqualPostAndPutMethod(String method) {
         return method.equalsIgnoreCase(HttpMethod.POST.toString())
                 || method.equalsIgnoreCase(HttpMethod.PUT.toString());
