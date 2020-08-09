@@ -1,6 +1,21 @@
+application-description: @project.description@
+application-version: @project.version@
+
 server:
   servlet:
     context-path: /
+springdoc:
+  default-consumes-media-type: "application/json"
+  default-produces-media-type: "application/json"
+  api-docs:
+    # /api-docs endpoint custom path
+    path: /usertracking-openapi
+  swagger-ui:
+    # swagger-ui custom path
+    path: /swagger-ui.html
+# Packages to include
+  packagesToScan: com.example.ecom
+
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread][%-5level][user-tracking-api]- %logger{36} - %msg%n"

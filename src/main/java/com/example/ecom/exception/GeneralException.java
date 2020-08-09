@@ -1,5 +1,6 @@
 package com.example.ecom.exception;
 
+import com.example.ecom.interceptors.exception.HttpHeaderException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.SQLGrammarException;
@@ -178,9 +179,23 @@ public class GeneralException {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(HttpHeaderException.class)
+    public ResponseEntity<ExceptionDetails> handleDateTimeParseException(
+            final HttpHeaderException httpHeaderException) {
+
+        final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
+                httpHeaderException.getMessage(),
+                HttpStatus.BAD_REQUEST.toString(),
+                DateHelper.getDatetimeStamp()
+        );
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(DateTimeParseException.class)
     public ResponseEntity<ExceptionDetails> handleDateTimeParseException(
-            final DateTimeParseException httpMessageNotReadableException) {
+            final DateTimeParseException dateTimeParseException) {
+
         final String message = getMessage(ERROR_MESSAGE_INVALID_FORMAT_JSON);
         final ExceptionDetails exceptionDetails = ExceptionDetails.createException(
                 message,
@@ -188,7 +203,7 @@ public class GeneralException {
                 DateHelper.getDatetimeStamp()
         );
 
-        printException(httpMessageNotReadableException, exceptionDetails);
+        printException(dateTimeParseException, exceptionDetails);
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
